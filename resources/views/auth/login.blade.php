@@ -74,7 +74,7 @@
 {{-- 多分使う --}}
                 <x-jet-button class="ml-4">
                     <a href="{{ route('login.guest') }}" class="text-white">
-                        ゲストログイン
+                        ゲスト
                       </a>
                     {{ __('簡単ログイン') }}
                 </x-jet-button>
