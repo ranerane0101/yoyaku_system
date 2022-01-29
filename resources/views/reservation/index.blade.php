@@ -134,6 +134,7 @@
             }
             this.dt = luxon.DateTime.now().startOf('day');
 
+            //HTMLが作成された後に実行
             Vue.nextTick(() =>{
                 $('[data-toggle="tooltip') . tooltip({
                     placement: 'right'
