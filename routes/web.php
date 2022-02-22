@@ -28,5 +28,10 @@ Route::prefix('reservation')->middleware('auth:sanctum')->group(function(){
 Route::get('/', [App\Http\Controllers\ReservationController::class, 'index'])->name('reservation.index');
 Route::get('/reservation_list', [App\Http\Controllers\ReservationController::class, 'reservation_list'])->name('reservation.reservation_list');
 
+Route::get('/request_reservation',[App\Http\Controllers\ReservationController::class,'request_reservation'])->name('reservation.request_reservation');
+
+// Route::get('/',[App\Http\Controllers\ReservationController::class,'request_reservation'])->name('reservation.request_reservation');
+
+
     Route::post('/', [App\Http\Controllers\ReservationController::class, 'store'])->name('reservation.store');
 });

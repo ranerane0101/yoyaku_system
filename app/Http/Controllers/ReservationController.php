@@ -15,6 +15,16 @@ class ReservationController extends Controller
         ]);
     }
 
+    public function request_reservation(Request $request)
+    {
+        $reservations = \App\Models\Reservation::all();
+        
+        return view ('reservation.request_reservation', [
+            'reservations' => $reservations
+        ]);
+        
+    }
+
     public function store(Request $request){
 
         $reservation = new Reservation();
@@ -25,12 +35,19 @@ class ReservationController extends Controller
 
         return ['result' => $result];
     }
-
+    
+    //日付に一致したレコードを返す
     public function reservation_list(Request $request){
         $reservations = Reservation::select('id', 'room_id', 'starts_at')->whereDate('starts_at', $request->date)->get();
 
         return [
             'reservations' => $reservations
         ];
+
+        
     }
+
+   
+
+    
 }

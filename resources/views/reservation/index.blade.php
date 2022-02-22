@@ -1,18 +1,49 @@
+<x-guest-layout>
+    
+        
+
+        <x-jet-validation-errors class="mb-4" />
+
+        @if (session('status'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <form method="GET" action="{{ route('reservation.request_reservation') }}">
+            @csrf
+
+            <div class="flex items-center justify-end mt-4">
+                @if (Route::has('password.request'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    </a>
+                @endif
+
+                <x-jet-button class="text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded">
+                    {{ __('予約状況を確認する？') }}
+                </x-jet-button>
+            </div>
+        </form>
+
+        
+    
+</x-guest-layout>
 <html>
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     </head>
     <body>
+        <div class="container">
         <div id="app">
             <div class="p-3">
                 <div class="btn-group mb-4">
                     <button type="button" class="btn btn-outline-secondary" @click="moveDate(-1)">&lt;</button>
                     <button type="button" class="btn btn-outline-secondary" v-text="date"></button>
-            <button type="button" class="btn btn-outline-secondary" @click="moveDate(1)">&gt;</button>
+                    <button type="button" class="btn btn-outline-secondary" @click="moveDate(1)">&gt;</button>
                 </div>
                 <div class="mb-5" v-for="room in rooms">
                     <h4>
-                        <span class="badge rounded-pill bg-info text-dark" v-text="room.name">Info</span>
+                        <span class="badge bg-primary text-dark" v-text="room.name">Info</span>
                     </h4>
                     <div v-for="hours in allHours">
                         <div class="row">
@@ -24,7 +55,8 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                       </div>
+                     </div>
                 </div>
             </div>
         </div>
@@ -35,7 +67,10 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <script>
+
     Vue.createApp({
+
+
         data(){
             return{
                 reservations: [],
@@ -54,7 +89,7 @@
                     this.reservations = response.data.reservations;
                 });
             },
-            getPaddedNumber(number){
+                getPaddedNumber(number){
                 return number.toString().padStart(2, '0');
             },
             getTimeRange(hours, minutes, timeSteps){
@@ -133,6 +168,7 @@
                 this.allHours.push(i);
             }
             this.dt = luxon.DateTime.now().startOf('day');
+
 
             //HTMLが作成された後に実行
             Vue.nextTick(() =>{
